@@ -33,13 +33,13 @@ var MapsLib = {
   //if your Fusion Table has two-column lat/lng data, see https://support.google.com/fusiontables/answer/175922
   locationColumn:     "Lat",
 
-  map_centroid:       new google.maps.LatLng(41.76619,-72.752895), //center that your map defaults to
+  map_centroid:       new google.maps.LatLng(41.7682,-72.684), //center that your map defaults to
   locationScope:      "connecticut",      //geographical area appended to all address searches
   recordName:         "result",       //for showing number of results
   recordNamePlural:   "results",
 
   searchRadius:       805,            //in meters ~ 1/2 mile
-  defaultZoom:        13,             //zoom level when map is loaded (bigger is more zoomed in)
+  defaultZoom:        12,             //zoom level when map is loaded (bigger is more zoomed in)
   addrMarkerImage:    'images/red-pushpin.png',
   currentPinpoint:    null,
 
@@ -91,7 +91,7 @@ var MapsLib = {
   //-----custom filters-------
 
     //-- To filter by numbers, remove commenting and use code below:
-       var type_column = "'TypeNum'";
+       var type_column = "'Type'";
     var searchType = type_column + " IN (-1,";
     if ( $("#cbType1").is(':checked')) searchType += "1,";
     if ( $("#cbType2").is(':checked')) searchType += "2,";
