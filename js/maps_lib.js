@@ -21,7 +21,10 @@ var MapsLib = {
 
   //the encrypted Table ID of your Fusion Table (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "1LRIdw4FNpJ-7bSy5yN-oiHmoAYoRAvxktYm0Cik",
+  fusionTableId:      "1LRIdw4FNpJ-7bSy5yN-oiHmoAYoRAvxktYm0Cik", //main table of point data
+  
+  polygon1TableID:    "1ceippR4giBiF-pT9PE1YAUvebFp6_NKvYriccYo," //CT town boundaries
+  polygon2TableID:    "1VopQGBhRKyyk25EIA5ptScvULxR68d43RhZ1ycM," //Hartford area school districts by race
 
   //*New Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/
   //*Important* this key is for demonstration purposes. please register your own.
@@ -73,7 +76,18 @@ var MapsLib = {
     $(":checkbox").prop("checked", "checked");
     $("#result_box").hide();
     
-    //-----custom initializers-------
+    //-----custom initializers------- I think this is correct
+    
+    $("#rbPolygon1").attr("checked", "checked"); //default setting to display Polygon1 layer
+    
+    MapsLib.polygon1 = new google.maps.FusionTablesLayer({
+      query: {from:   MapsLib.polygon1TableId, select: "geometry"} //match with "Map of" in Fusion Table
+    });
+    MapsLib.polygon2 = new google.maps.FusionTablesLayer({
+      query: {from:   MapsLib.polygon2TableId, select: "geometry"} //match with "Map of" in Fusion Table
+    });
+
+    MapsLib.polygon1.setMap(map);
     
     //-----end of custom initializers-------
 
@@ -91,7 +105,7 @@ var MapsLib = {
   //-----custom filters-------
 
     //-- To filter by numbers, remove commenting and use code below:
-       var type_column = "'Type'";
+    var type_column = "'Type'";
     var searchType = type_column + " IN (-1,";
     if ( $("#cbType1").is(':checked')) searchType += "1,";
     if ( $("#cbType2").is(':checked')) searchType += "2,";
@@ -99,6 +113,30 @@ var MapsLib = {
     whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")";
 
     //-------end of custom filters--------
+    
+    //---TESTING polygon layer toggle
+    togglePolygon: function() {
+    MapsLib.polygon1.setMap(null);
+    MapsLib.polygon2.setMap(null);
+  
+    if ($("#rbPolygon1").is(':checked')) {
+      MapsLib.polygon1.setMap(map);
+    }
+    if ($("#rbPolygon2").is(':checked')) {
+      MapsLib.polygon2.setMap(map);
+    }
+    if ($("#rbPolygon0").is(':checked')) {
+    }
+
+      MapsLib.refreshBuildings();
+    },
+  
+    refreshBuildings: function() {
+      if (MapsLib.searchrecords != null)
+        MapsLib.searchrecords.setMap(map);
+    },
+  
+  // -- end of polygon toggle layer testing
 
     if (address != "") {
       if (address.toLowerCase().indexOf(MapsLib.locationScope) == -1)
