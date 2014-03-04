@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <title>Search-and-Filter Map Template with checkboxes</title>
+    <title>Search-and-Filter Map Template</title>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta content='' name='description' />
@@ -23,7 +23,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class='navbar-brand' href='index.html'>Search-and-Filter Map Template with checkboxes</a>
+          <a class='navbar-brand' href='index.html'>Search-and-Filter Map Template with 2 layers</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -35,7 +35,7 @@
     <div class='container'>
       <div class='row'>
         <div class='col-md-4'>
-          <p>Download and modify the template code <a href="https://github.com/JackDougherty/FusionTable-Map-Checkboxes#fusiontable-map-checkboxes">from GitHub</a><br>Based on <a href='http://derekeder.com/searchable_map_template/'>Searchable Map Template</a> by <a href='http://derekeder.com'>Derek Eder</a><br>Draws data from <a href='http://support.google.com/fusiontables/answer/2571232?hl=en&ref_topic=1652595'>Google Fusion Tables</a></p>
+          <p>Download and modify the template code <a href="https://github.com/JackDougherty/FusionTable-Map-2-layers" target="_blank">from GitHub</a><br>Based on <a href='http://derekeder.com/searchable_map_template/' target='_blank'>Searchable Map Template</a> by <a href='http://derekeder.com'>Derek Eder</a><br>Draws data from <a href='http://support.google.com/fusiontables/answer/2571232?hl=en&ref_topic=1652595' target='_blank'>Google Fusion Tables</a></p>
           <div class='well'>
             <h4>
               Address <small>(<a id='find_me' href='#'>find me</a>)</small>
@@ -56,46 +56,55 @@
             </p>
 
             <h4>
-              Program type
+              Point layer
             </h4>
             <ul class='inputs-list unstyled'>
               <li>
                 <label class='checkbox inline'>
                   <input type='checkbox' id='cbType1' />
-                  <span class='filter-box filter-blue'></span>
-                  Preschool
+                  <span class='filter-box filter-green'></span>
+                  Interdistrict schools
                 </label>
               </li>
               <li>
                 <label class='checkbox inline'>
                   <input type='checkbox' id='cbType2' />
-                  <span class='filter-box filter-green'></span>
-                  Pre-K Programs
+                  <span class='filter-box filter-blue'></span>
+                  District schools
                 </label>
               </li>
               <li>
                 <label class='checkbox inline'>
                   <input type='checkbox' id='cbType3' />
-                  <span class='filter-box filter-red'></span>
-                  Home Care
-                </label>
-              </li>
-              <li>
-                <label class='checkbox inline'>
-                  <input type='checkbox' id='cbType4' />
-                  <span class='filter-box filter-purple'></span>
-                  Elementary
-                </label>
-              </li>
-              <li>
-                <label class='checkbox inline'>
-                  <input type='checkbox' id='cbType5' />
                   <span class='filter-box filter-yellow'></span>
-                  High School
+                  More PreK centers
                 </label>
               </li>
             </ul>
-
+            <h4>
+            <!-- Testing polygon layers-->
+              Polygon layers
+            </h4>
+            <ul class='inputs-list unstyled'>
+              <li>
+                <label class='radio inline'>
+                  <input type='radio' name='types' id='rbPolygon1' checked />
+                  Polygon layer 1
+                </label>
+              </li>
+              <li>
+                <label class='radio inline'>
+                  <input type='radio' name='types' id='rbPolygon2' />
+                  Polygon layer 2
+                </label>
+              </li>
+              <li>
+                <label class='radio inline'>
+                  <input type='radio' name='types' id='rbPolygon0' />
+                  Off
+                </label>
+              </li>
+            </ul>
             <br />
             <a class='btn btn-primary' id='search' href='#'>
               <i class='glyphicon glyphicon-search'></i>
@@ -116,7 +125,7 @@
             </div>
           </noscript>
           <div id='map_canvas'></div>
-          <p>View <a href='https://www.google.com/fusiontables/DataSource?docid=1uAKbe1PhZBqd2pcMjm4Qa8FogeK0phNl9L5hUlI' target='blank'>data source</a> from <a href='http://greatby8.com' target='_blank'>GreatBy8.com</a> -- Visualization based on <a href='http://derekeder.com/searchable_map_template/' target='_blank'>Searchable Map Template</a> by <a href='http://derekeder.com' target='_blank'>Derek Eder</a></p>
+          <p>View <a href='https://www.google.com/fusiontables/DataSource?docid=1LRIdw4FNpJ-7bSy5yN-oiHmoAYoRAvxktYm0Cik' target='blank'>data source</a> from <a href='http://smartchoices.trincoll.edu' target='_blank'>SmartChoices</a> -- Visualization based on <a href='http://derekeder.com/searchable_map_template/' target='_blank'>Searchable Map Template</a> by <a href='http://derekeder.com' target='_blank'>Derek Eder</a></p>
         </div>
       </div>
     </div>

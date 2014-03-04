@@ -21,7 +21,10 @@ var MapsLib = {
 
   //the encrypted Table ID of your Fusion Table (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "1uAKbe1PhZBqd2pcMjm4Qa8FogeK0phNl9L5hUlI",
+  fusionTableId:      "1LRIdw4FNpJ-7bSy5yN-oiHmoAYoRAvxktYm0Cik", //main table of point data
+  
+  polygon1TableID:    "1ceippR4giBiF-pT9PE1YAUvebFp6_NKvYriccYo," //CT town boundaries
+  polygon2TableID:    "1VopQGBhRKyyk25EIA5ptScvULxR68d43RhZ1ycM," //Hartford area school districts by race
 
   //*New Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/
   //*Important* this key is for demonstration purposes. please register your own.
@@ -30,16 +33,17 @@ var MapsLib = {
   //name of the location column in your Fusion Table.
   //NOTE: if your location column name has spaces in it, surround it with single quotes
   //example: locationColumn:     "'my location'",
-  locationColumn:     "Address",
+  //if your Fusion Table has two-column lat/lng data, see https://support.google.com/fusiontables/answer/175922
+  locationColumn:     "Lat",
 
-  map_centroid:       new google.maps.LatLng(41.76619,-72.752895), //center that your map defaults to
+  map_centroid:       new google.maps.LatLng(41.7682,-72.684), //center that your map defaults to
   locationScope:      "connecticut",      //geographical area appended to all address searches
   recordName:         "result",       //for showing number of results
   recordNamePlural:   "results",
 
   searchRadius:       805,            //in meters ~ 1/2 mile
-  defaultZoom:        13,             //zoom level when map is loaded (bigger is more zoomed in)
-  addrMarkerImage:    'images/blue-pushpin.png',
+  defaultZoom:        12,             //zoom level when map is loaded (bigger is more zoomed in)
+  addrMarkerImage:    'images/red-pushpin.png',
   currentPinpoint:    null,
 
   initialize: function() {
@@ -72,7 +76,18 @@ var MapsLib = {
     $(":checkbox").prop("checked", "checked");
     $("#result_box").hide();
     
-    //-----custom initializers-------
+    //-----custom initializers------- I think this is correct
+    
+    $("#rbPolygon1").attr("checked", "checked"); //default setting to display Polygon1 layer
+    
+    MapsLib.polygon1 = new google.maps.FusionTablesLayer({
+      query: {from:   MapsLib.polygon1TableId, select: "geometry"} //match with "Map of" in Fusion Table
+    });
+    MapsLib.polygon2 = new google.maps.FusionTablesLayer({
+      query: {from:   MapsLib.polygon2TableId, select: "geometry"} //match with "Map of" in Fusion Table
+    });
+
+    MapsLib.polygon1.setMap(map);
     
     //-----end of custom initializers-------
 
@@ -89,27 +104,39 @@ var MapsLib = {
 
   //-----custom filters-------
 
-    //---Filter by text, matched with column header and values in your Google Fusion Table
-    var type_column = "'Program Type'";
-    var tempWhereClause = [];
-    if ( $("#cbType1").is(':checked')) tempWhereClause.push("Preschool");
-    if ( $("#cbType2").is(':checked')) tempWhereClause.push("Pre-K Programs");
-    if ( $("#cbType3").is(':checked')) tempWhereClause.push("Home Care");
-    if ( $("#cbType4").is(':checked')) tempWhereClause.push("Elementary");
-    if ( $("#cbType5").is(':checked')) tempWhereClause.push("High School");
-    whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')";
-
     //-- To filter by numbers, remove commenting and use code below:
-    /*    var type_column = "'TypeNum'";
+    var type_column = "'Type'";
     var searchType = type_column + " IN (-1,";
     if ( $("#cbType1").is(':checked')) searchType += "1,";
     if ( $("#cbType2").is(':checked')) searchType += "2,";
     if ( $("#cbType3").is(':checked')) searchType += "3,";
-    if ( $("#cbType4").is(':checked')) searchType += "4,";
-    if ( $("#cbType5").is(':checked')) searchType += "5,";
-    whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")";*/
+    whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")";
 
     //-------end of custom filters--------
+    
+    //---TESTING polygon layer toggle
+    togglePolygon: function() {
+    MapsLib.polygon1.setMap(null);
+    MapsLib.polygon2.setMap(null);
+  
+    if ($("#rbPolygon1").is(':checked')) {
+      MapsLib.polygon1.setMap(map);
+    }
+    if ($("#rbPolygon2").is(':checked')) {
+      MapsLib.polygon2.setMap(map);
+    }
+    if ($("#rbPolygon0").is(':checked')) {
+    }
+
+      MapsLib.refreshBuildings();
+    },
+  
+    refreshBuildings: function() {
+      if (MapsLib.searchrecords != null)
+        MapsLib.searchrecords.setMap(map);
+    },
+  
+  // -- end of polygon toggle layer testing
 
     if (address != "") {
       if (address.toLowerCase().indexOf(MapsLib.locationScope) == -1)
