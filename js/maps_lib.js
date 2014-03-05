@@ -114,29 +114,7 @@ var MapsLib = {
 
     //-------end of custom filters--------
     
-    //---TESTING polygon layer toggle
-    togglePolygon: function() {
-    MapsLib.polygon1.setMap(null);
-    MapsLib.polygon2.setMap(null);
-  
-    if ($("#rbPolygon1").is(':checked')) {
-      MapsLib.polygon1.setMap(map);
-    }
-    if ($("#rbPolygon2").is(':checked')) {
-      MapsLib.polygon2.setMap(map);
-    }
-    if ($("#rbPolygon0").is(':checked')) {
-    }
-
-      MapsLib.refreshBuildings();
-    },
-  
-    refreshBuildings: function() {
-      if (MapsLib.searchrecords != null)
-        MapsLib.searchrecords.setMap(map);
-    },
-  
-  // -- end of polygon toggle layer testing
+    
 
     if (address != "") {
       if (address.toLowerCase().indexOf(MapsLib.locationScope) == -1)
