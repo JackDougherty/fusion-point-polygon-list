@@ -77,7 +77,7 @@ var MapsLib = {
     $("#result_box").hide();
     
     //-----custom initializers------- I think this is correct
-    
+    /*
     $("#rbPolygon1").attr("checked", "checked"); //default setting to display Polygon1 layer
     
     MapsLib.polygon1 = new google.maps.FusionTablesLayer({
@@ -88,6 +88,7 @@ var MapsLib = {
     });
 
     MapsLib.polygon1.setMap(map);
+    */
     
     //---TESTING polygon layer toggle
     /* togglePolygon: function() {
