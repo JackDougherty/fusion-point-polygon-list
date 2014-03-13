@@ -68,6 +68,25 @@ var MapsLib = {
 
     MapsLib.searchrecords = null;
 
+    // define background polygons
+    MapsLib.polygon1 = new google.maps.FusionTablesLayer({
+      query: {
+        from:   MapsLib.polygon1TableID,
+        select: "geometry"
+      },
+      styleId: 2,
+      templateId: 2
+    });
+
+    MapsLib.polygon2 = new google.maps.FusionTablesLayer({
+      query: {
+        from:   MapsLib.polygon2TableID,
+        select: "geometry"
+      },
+      styleId: 2,
+      templateId: 2
+    });
+
     //reset filters
     $("#search_address").val(MapsLib.convertToPlainString($.address.parameter('address')));
     var loadRadius = MapsLib.convertToPlainString($.address.parameter('radius'));
@@ -77,42 +96,8 @@ var MapsLib = {
     $("#result_box").hide();
     
     //-----custom initializers------- I think this is correct
-    /*
+    
     $("#rbPolygon1").attr("checked", "checked"); //default setting to display Polygon1 layer
-    
-    MapsLib.polygon1 = new google.maps.FusionTablesLayer({
-      query: {from:   MapsLib.polygon1TableId, select: "geometry"} //match with "Map of" in Fusion Table
-    });
-    MapsLib.polygon2 = new google.maps.FusionTablesLayer({
-      query: {from:   MapsLib.polygon2TableId, select: "geometry"} //match with "Map of" in Fusion Table
-    });
-
-    MapsLib.polygon1.setMap(map);
-    */
-    
-    //---TESTING polygon layer toggle
-    /* togglePolygon: function() {
-    MapsLib.polygon1.setMap(null);
-    MapsLib.polygon2.setMap(null);
-  
-    if ($("#rbPolygon1").is(':checked')) {
-      MapsLib.polygon1.setMap(map);
-    }
-    if ($("#rbPolygon2").is(':checked')) {
-      MapsLib.polygon2.setMap(map);
-    }
-    if ($("#rbPolygon0").is(':checked')) {
-    }
-
-      MapsLib.refreshBuildings();
-    },
-  
-    refreshBuildings: function() {
-      if (MapsLib.searchrecords != null)
-        MapsLib.searchrecords.setMap(map);
-    }, */
-  
-  // -- end of polygon toggle layer testing
     
     //-----end of custom initializers-------
 
@@ -122,6 +107,15 @@ var MapsLib = {
 
   doSearch: function(location) {
     MapsLib.clearSearch();
+
+    // show background polygon depending on which checkbox is selected
+    if ($("#rbPolygon1").is(':checked')) {
+      MapsLib.polygon1.setMap(map);
+    }
+    else if ($("#rbPolygon2").is(':checked')) {
+      MapsLib.polygon2.setMap(map);
+    }
+
     var address = $("#search_address").val();
     MapsLib.searchRadius = $("#search_radius").val();
 
@@ -199,6 +193,10 @@ var MapsLib = {
   clearSearch: function() {
     if (MapsLib.searchrecords != null)
       MapsLib.searchrecords.setMap(null);
+    if (MapsLib.polygon1 != null)
+      MapsLib.polygon1.setMap(null);
+    if (MapsLib.polygon2 != null)
+      MapsLib.polygon2.setMap(null);
     if (MapsLib.addrMarker != null)
       MapsLib.addrMarker.setMap(null);
     if (MapsLib.searchRadiusCircle != null)
