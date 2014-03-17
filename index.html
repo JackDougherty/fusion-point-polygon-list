@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
+    <!--MODIFY title that appears in web browser tab -->
     <title>Search-and-Filter Map Template</title>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -23,10 +24,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          <!--MODIFY title of web page -->
           <a class='navbar-brand' href='index.html'>Search-and-Filter Map Template with 2 layers</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <!--MODIFY link and text to point to your own site if desired-->
             <li class='active'><a href="http://epress.trincoll.edu/dataviz" target="_blank">Learn more from free DataViz book at Trinity College CT</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -35,6 +38,7 @@
     <div class='container'>
       <div class='row'>
         <div class='col-md-4'>
+        <!--MODIFY or erase any descriptive text or links below between the paragraph <p> tags -->
           <p>Download and modify the template code <a href="https://github.com/JackDougherty/FusionTable-Map-2-layers" target="_blank">from GitHub</a><br>Based on <a href='http://derekeder.com/searchable_map_template/' target='_blank'>Searchable Map Template</a> by <a href='http://derekeder.com'>Derek Eder</a><br>Draws data from <a href='http://support.google.com/fusiontables/answer/2571232?hl=en&ref_topic=1652595' target='_blank'>Google Fusion Tables</a></p>
           <div class='well'>
             <h4>
@@ -47,6 +51,7 @@
               <label>
                 within
                 <select id='search_radius'>
+                  <!--MODIFY search options. Values are metric: 1610 meters = 1 mile -->
                   <option value='400'>2 blocks</option>
                   <option value='805'>1/2 mile</option>
                   <option value='1610'>1 mile</option>
@@ -54,7 +59,8 @@
                 </select>
               </label>
             </p>
-
+            
+            <!--MODIFY Point layer legend heading, labels (such as Interdistrict), and colors (purple, red) to match your data -->
             <h4>
               Point layer
             </h4>
@@ -82,7 +88,7 @@
               </li>
             </ul>
             <h4>
-            <!-- Testing polygon layers-->
+            <!--MODIFY Polygon layers legend heading, labels (such as Polygon layer 1) to match your data, and related variables in maps_lib.js file -->
               Polygon layers
             </h4>
             <ul class='inputs-list unstyled'>
@@ -125,6 +131,7 @@
             </div>
           </noscript>
           <div id='map_canvas'></div>
+          <!--MODIFY link to publicly display your Google Fusion Tables data table, source, and text-->
           <p>View <a href='https://www.google.com/fusiontables/DataSource?docid=1LRIdw4FNpJ-7bSy5yN-oiHmoAYoRAvxktYm0Cik' target='blank'>data source</a> from <a href='http://smartchoices.trincoll.edu' target='_blank'>SmartChoices</a> -- Visualization based on <a href='http://derekeder.com/searchable_map_template/' target='_blank'>Searchable Map Template</a> by <a href='http://derekeder.com' target='_blank'>Derek Eder</a></p>
         </div>
       </div>
