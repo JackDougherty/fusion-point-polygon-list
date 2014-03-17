@@ -1,4 +1,9 @@
 /*!
+ * TEMPLATE INSTRUCTIONS: Look for sections below marked MODIFY and adjust to fit your data and index.html page
+ * Learn more at
+ * Data Visualization book-in-progress by Jack Dougherty at Trinity College CT
+ * http://epress.trincoll.edu/dataviz
+ * and
  * Searchable Map Template with Google Fusion Tables
  * http://derekeder.com/searchable_map_template/
  *
@@ -6,7 +11,7 @@
  * Licensed under the MIT license.
  * https://github.com/derekeder/FusionTable-Map-Template/wiki/License
  *
- * Date: 12/10/2012
+ * Date: 17/03/2014 template modified by Derek Eder and Jack Dougherty
  *
  */
 
@@ -19,18 +24,18 @@ var MapsLib = {
   //Setup section - put your Fusion Table details here
   //Using the v1 Fusion Tables API. See https://developers.google.com/fusiontables/docs/v1/migration_guide for more info
 
-  //the encrypted Table ID of your Fusion Table (found under File => About)
+  //MODIFY the encrypted Table IDs of your Fusion Tables (found under File => About)
   //NOTE: numeric IDs will be depricated soon
-  fusionTableId:      "1LRIdw4FNpJ-7bSy5yN-oiHmoAYoRAvxktYm0Cik", //main table of point data
+  fusionTableId:      "1LRIdw4FNpJ-7bSy5yN-oiHmoAYoRAvxktYm0Cik", //Point data layer
   
-  polygon1TableID:    "1ceippR4giBiF-pT9PE1YAUvebFp6_NKvYriccYo", //CT town boundaries
-  polygon2TableID:    "1VopQGBhRKyyk25EIA5ptScvULxR68d43RhZ1ycM", //Hartford area school districts by race
+  polygon1TableID:    "1ceippR4giBiF-pT9PE1YAUvebFp6_NKvYriccYo", //Outline map layer of CT town boundaries
+  polygon2TableID:    "1VopQGBhRKyyk25EIA5ptScvULxR68d43RhZ1ycM", //Thematic map layer of selected CT school districts
 
-  //*New Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/
+  //*MODIFY Fusion Tables Requirement* API key. found at https://code.google.com/apis/console/
   //*Important* this key is for demonstration purposes. please register your own.
   googleApiKey:       "AIzaSyDIevSvpV-ONb4Pf15VUtwyr_zZa7ccwq4",
 
-  //name of the location column in your Fusion Table.
+  //MODIFY name of the location column in your Fusion Table.
   //NOTE: if your location column name has spaces in it, surround it with single quotes
   //example: locationColumn:     "'my location'",
   //if your Fusion Table has two-column lat/lng data, see https://support.google.com/fusiontables/answer/175922
