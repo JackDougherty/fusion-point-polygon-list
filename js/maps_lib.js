@@ -62,8 +62,8 @@ var MapsLib = {
       styles: [
         {
           stylers: [
-            { saturation: -100 },
-            { lightness: 40 }
+            { saturation: -100 }, // MODIFY Saturation and Lightness if needed
+            { lightness: 40 }     // Current values make thematic polygon shading stand out over base map
           ]
         }
       ]
@@ -81,7 +81,7 @@ var MapsLib = {
 
     MapsLib.searchrecords = null;
 
-    // define background polygons
+    // MODIFY if needed: defines background polygon1 and polygon2 layers
     MapsLib.polygon1 = new google.maps.FusionTablesLayer({
       query: {
         from:   MapsLib.polygon1TableID,
@@ -108,9 +108,9 @@ var MapsLib = {
     $(":checkbox").prop("checked", "checked");
     $("#result_box").hide();
     
-    //-----custom initializers------- I think this is correct
+    //-----custom initializers -- default setting to display Polygon1 layer
     
-    $("#rbPolygon1").attr("checked", "checked"); //default setting to display Polygon1 layer
+    $("#rbPolygon1").attr("checked", "checked"); 
     
     //-----end of custom initializers-------
 
@@ -121,7 +121,7 @@ var MapsLib = {
   doSearch: function(location) {
     MapsLib.clearSearch();
 
-    // show background polygon depending on which checkbox is selected
+    // MODIFY if needed: shows background polygon layer depending on which checkbox is selected
     if ($("#rbPolygon1").is(':checked')) {
       MapsLib.polygon1.setMap(map);
     }
@@ -134,19 +134,26 @@ var MapsLib = {
 
     var whereClause = MapsLib.locationColumn + " not equal to ''";
 
-  //-----custom filters-------
+  //-----custom filters for point data layer
+    //---MODIFY column header and values below to match your Google Fusion Table AND index.html
+    //-- TEXTUAL OPTION to display legend and filter by non-numerical data in your table
+    var type_column = "'Program Type'";  // -- note use of single & double quotes for two-word column header
+    var tempWhereClause = [];
+    if ( $("#cbType1").is(':checked')) tempWhereClause.push("Interdistrict");
+    if ( $("#cbType2").is(':checked')) tempWhereClause.push("District");
+    if ( $("#cbType3").is(':checked')) tempWhereClause.push("MorePreK");
+    whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')";
 
-    //-- To filter by numbers, remove commenting and use code below:
-    var type_column = "'Type'";
+    //-- NUMERICAL OPTION - to display and filter a column of numerical data in your table, use this instead
+    /*    var type_column = "'TypeNum'";
     var searchType = type_column + " IN (-1,";
     if ( $("#cbType1").is(':checked')) searchType += "1,";
     if ( $("#cbType2").is(':checked')) searchType += "2,";
     if ( $("#cbType3").is(':checked')) searchType += "3,";
-    whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")";
-
+    if ( $("#cbType4").is(':checked')) searchType += "4,";
+    if ( $("#cbType5").is(':checked')) searchType += "5,";
+    whereClause += " AND " + searchType.slice(0, searchType.length - 1) + ")";*/
     //-------end of custom filters--------
-    
-    
 
     if (address != "") {
       if (address.toLowerCase().indexOf(MapsLib.locationScope) == -1)
@@ -202,7 +209,7 @@ var MapsLib = {
     MapsLib.searchrecords.setMap(map);
     MapsLib.getCount(whereClause);
   },
-
+  // MODIFY if you change the number of Polygon layers
   clearSearch: function() {
     if (MapsLib.searchrecords != null)
       MapsLib.searchrecords.setMap(null);
