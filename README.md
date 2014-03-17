@@ -18,11 +18,9 @@ Basic steps:
 
 3) Host everything on the web (such as a GitHub repository gh-pages branch)
 
-Learn more at open-access Data Visualization book-in-progress at Trinity College 
-
+Learn more in an open-access Data Visualization book-in-progress by Jack Dougherty at Trinity College CT
 http://epress.trincoll.edu/dataviz
 
 
 Based on Google Fusion Table Map template, with customization, by Derek Eder
-
 http://derekeder.com/searchable_map_template/
