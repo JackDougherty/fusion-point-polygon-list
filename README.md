@@ -7,7 +7,7 @@ Use this template if you wish to create a Search-and-Filter map that turns on/of
 
 Basic steps:
 
-1) Use Google Fusion Tables to create your point and polygon map layers, and change the feature styles (set ranges, colors, etc.)
+1) Use Google Fusion Tables to create your point and polygon map layers, and change the feature styles (set ranges, colors, etc.) and info windows.
 
 2) Make your own copy of this template: either Fork to your own GitHub account, or Clone in Desktop, or Download a ZIP compressed version to your desktop.
 
@@ -20,3 +20,5 @@ Basic steps:
 
 Learn more in an open-access Data Visualization book-in-progress by Jack Dougherty at Trinity College CT
 http://epress.trincoll.edu/dataviz
+
+TO DO: add polygon legend on index.html, similar to http://chicagobuildings.org/
