@@ -7,7 +7,7 @@ Use this template if you wish to create a Search-and-Filter map that turns on/of
 
 Basic steps:
 
-1) Use Google Fusion Tables to create your point and polygon map layers. For the point map, change feature styles (select column and range for marker color and size).
+1) Use Google Fusion Tables to create your point and polygon map layers, and change the feature styles (set ranges, colors, etc.)
 
 2) Make your own copy of this template: either Fork to your own GitHub account, or Clone in Desktop, or Download a ZIP compressed version to your desktop.
 
