@@ -6,8 +6,8 @@ a:hover { color: #4B58A6; }
 }
 
 .filter-box { 
-  height: 30px; 
-  width: 30px;  
+  height: 15px; 
+  width: 15px;  
   display: inline-block;
   *border-right-width: 2px;
   *border-bottom-width: 2px;
