@@ -48,7 +48,7 @@ var MapsLib = {
 
   searchRadius:       805,            //in meters ~ 1/2 mile
   defaultZoom:        12,             //zoom level when map is loaded (bigger is more zoomed in)
-  addrMarkerImage:    'images/red-pushpin.png',
+  addrMarkerImage:    'images/blue-pushpin.png',
   currentPinpoint:    null,
 
   initialize: function() {
