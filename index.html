@@ -111,15 +111,25 @@
                 </label>
               </li>
             </ul> 
-            <br />
-            <a class='btn btn-primary' id='search' href='#'>
-              <i class='glyphicon glyphicon-search'></i>
-              Search
-            </a>
-            <a class='btn btn-default' id='reset' href='#'>
-              <i class='glyphicon glyphicon-repeat'></i>
-              Reset
-            </a>
+            
+            <div class='clearfix'></div>
+            <p class='pull-left'>
+              <a class='btn btn-primary' id='search' href='#'>
+                <i class='glyphicon glyphicon-search'></i>
+                Search
+              </a>
+              <a class='btn btn-default' id='reset' href='#'>
+                <i class='glyphicon glyphicon-repeat'></i>
+                Reset
+              </a>
+            </p>
+            <p class='pull-right'>
+              <a class='btn btn-default' id='viewmode' href='#'>
+                <i class='glyphicon glyphicon-list-alt'></i>
+                List view
+              </a>
+            </p>
+            <div class='clearfix'></div>
           </div>
           <div class='alert alert-info' id='result_box' ><strong id='result_count'></strong></div>
         </div>
@@ -131,6 +141,7 @@
             </div>
           </noscript>
           <div id='map_canvas'></div>
+          <div id='listview' style="display:none;"></div>
           <!--MODIFY link to publicly display your Google Fusion Tables data table, source, and text-->
           <p>View <a href='https://www.google.com/fusiontables/DataSource?docid=1ga2XDlXm5uoH5Dx_jKWrMn-BgBGYsSnSRqDWBYou' target='blank'>data source</a> from <a href='http://smartchoices.trincoll.edu' target='_blank'>SmartChoices</a> -- Visualization based on <a href='http://derekeder.com/searchable_map_template/' target='_blank'>Searchable Map Template</a> by <a href='http://derekeder.com' target='_blank'>Derek Eder</a></p>
         </div>
@@ -182,6 +193,21 @@
             MapsLib.initialize(); 
             return false;
           });
+
+          $('#viewmode').click(function(){
+            if ($('#map_canvas').is(":visible")){
+              $('#viewmode').html("<i class='glyphicon glyphicon-map-marker'></i> Map view");
+              $('#listview').show();
+              $('#map_canvas').hide();
+            }
+
+            else {
+              $('#viewmode').html("<i class='glyphicon glyphicon-list-alt'></i> List view");
+              $('#map_canvas').show();
+                $('#listview').hide();
+            } 
+           });
+
           
           $(":text").keydown(function(e){
               var key =  e.keyCode ? e.keyCode : e.which;

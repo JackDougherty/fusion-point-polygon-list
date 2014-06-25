@@ -208,6 +208,7 @@ var MapsLib = {
     });
     MapsLib.searchrecords.setMap(map);
     MapsLib.getCount(whereClause);
+    MapsLib.getList(whereClause);
   },
   // MODIFY if you change the number of Polygon layers
   clearSearch: function() {
@@ -268,13 +269,25 @@ var MapsLib = {
       MapsLib.searchRadiusCircle = new google.maps.Circle(circleOptions);
   },
 
-  query: function(selectColumns, whereClause, callback) {
+  query: function(selectColumns, whereClause, groupBY, orderBY, limit, callback) {
     var queryStr = [];
     queryStr.push("SELECT " + selectColumns);
     queryStr.push(" FROM " + MapsLib.fusionTableId);
-    queryStr.push(" WHERE " + whereClause);
+
+    if (whereClause != "")
+      queryStr.push(" WHERE " + whereClause);
+
+    if (groupBY != "")
+      queryStr.push(" GROUP BY " + groupBY);
+
+    if (orderBY != "")
+      queryStr.push(" ORDER BY " + orderBY);
+
+     if (limit != "")
+      queryStr.push(" LIMIT " + limit);
 
     var sql = encodeURIComponent(queryStr.join(" "));
+    console.log(sql)
     $.ajax({url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql+"&callback="+callback+"&key="+MapsLib.googleApiKey, dataType: "jsonp"});
   },
 
@@ -292,7 +305,7 @@ var MapsLib = {
 
   getCount: function(whereClause) {
     var selectColumns = "Count()";
-    MapsLib.query(selectColumns, whereClause,"MapsLib.displaySearchCount");
+    MapsLib.query(selectColumns, whereClause,"", "", "", "MapsLib.displaySearchCount");
   },
 
   displaySearchCount: function(json) {
@@ -309,6 +322,45 @@ var MapsLib = {
       });
     $( "#result_box" ).fadeIn();
   },
+
+  getList: function(whereClause) {
+    var selectColumns = "*";
+    MapsLib.query(selectColumns, whereClause,"", "", 500, "MapsLib.displayList");
+  },
+
+  displayList: function(json) {
+    MapsLib.handleError(json);
+    var data = json["rows"];
+    var template = "";
+    console.log(data);
+
+    var results = $("#listview");
+    results.empty(); //hide the existing list and empty it out first
+
+    if (data == null) {
+      //clear results list
+      results.append("<span class='lead'>No results found</span>");
+      }
+    else {
+      for (var row in data) {
+        template = "\
+          <div class='row-fluid item-list'>\
+            <div class='span12'>\
+              <dl class='dl-horizontal'>";
+
+          for (var i = 0; i < json["columns"].length; i++) {
+            template += "<dt>" + json["columns"][i] + "</dt>\
+                         <dd>" + data[row][i] + "</dd>";
+          }
+               
+        template += "</dl>\
+            </div>\
+          </div><hr />";
+        results.append(template);
+      }
+    }
+   },
+
 
   addCommas: function(nStr) {
     nStr += '';
