@@ -287,7 +287,7 @@ var MapsLib = {
       queryStr.push(" LIMIT " + limit);
 
     var sql = encodeURIComponent(queryStr.join(" "));
-    console.log(sql)
+    // console.log(sql)
     $.ajax({url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql+"&callback="+callback+"&key="+MapsLib.googleApiKey, dataType: "jsonp"});
   },
 
@@ -324,40 +324,88 @@ var MapsLib = {
   },
 
   getList: function(whereClause) {
-    var selectColumns = "*";
+    // select specific columns from the fusion table to display in th list
+    // NOTE: we'll be referencing these by their index (0 = School, 1 = GradeLevels, etc), so order matters!
+    var selectColumns = "School, GradeLevels, Address, City, State, Url, Manager, Gain_numeric, Gain_image";
     MapsLib.query(selectColumns, whereClause,"", "", 500, "MapsLib.displayList");
   },
 
   displayList: function(json) {
     MapsLib.handleError(json);
-    var data = json["rows"];
+    var columns = json["columns"];
+    var rows = json["rows"];
     var template = "";
-    console.log(data);
 
     var results = $("#listview");
     results.empty(); //hide the existing list and empty it out first
 
-    if (data == null) {
+    if (rows == null) {
       //clear results list
       results.append("<span class='lead'>No results found</span>");
       }
     else {
-      for (var row in data) {
-        template = "\
-          <div class='row-fluid item-list'>\
-            <div class='span12'>\
-              <dl class='dl-horizontal'>";
 
-          for (var i = 0; i < json["columns"].length; i++) {
-            template += "<dt>" + json["columns"][i] + "</dt>\
-                         <dd>" + data[row][i] + "</dd>";
-          }
-               
-        template += "</dl>\
-            </div>\
-          </div><hr />";
-        results.append(template);
+      //set table headers
+      var list_table = "\
+      <table class='table' id ='list_table'>\
+        <thead>\
+          <tr>\
+            <th>School</th>\
+            <th>Grades</th>\
+            <th>Address</th>\
+            <th>Manager</th>\
+            <th>Gain</th>\
+          </tr>\
+        </thead>\
+        <tbody>";
+
+      // based on the columns we selected in getList()
+      // rows[row][0] = School
+      // rows[row][1] = GradeLevels
+      // rows[row][2] = Address
+      // rows[row][3] = City
+      // rows[row][4] = State
+      // rows[row][5] = Url
+      // rows[row][6] = Manager
+      // rows[row][7] = Gain_numeric
+      // rows[row][8] = Gain_image
+
+      for (var row in rows) {
+
+        var school = "<a href='" + rows[row][5] + "'>" + rows[row][0] + "</a>";
+        var address = rows[row][2] + "<br />" + rows[row][3] + ", " + rows[row][4];
+
+        list_table += "\
+          <tr>\
+            <td>" + school + "</td>\
+            <td>" + rows[row][1] + "</td>\
+            <td>" + address + "</td>\
+            <td>" + rows[row][6] + "</td>\
+            <td><span data-value='" + rows[row][7] + "'><img src='" + rows[row][8] + "' /></span></td>\
+          </tr>";
       }
+
+      list_table += "\
+          </tbody>\
+        </table>";
+      results.append(list_table);
+      
+      // init datatable
+      $("#list_table").dataTable({
+          "aaSorting": [[0, "asc"]],
+          "aoColumns": [
+              { "sType": "html-string" },
+              null,
+              null,
+              null,
+              { "sType": "data-value-num" }
+          ],
+          "bFilter": false,
+          "bInfo": false,
+          "bPaginate": true,
+          "sPaginationType": "bootstrap",
+          "bAutoWidth": false
+      });
     }
    },
 
