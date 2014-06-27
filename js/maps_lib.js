@@ -350,8 +350,8 @@ var MapsLib = {
       <table class='table' id ='list_table'>\
         <thead>\
           <tr>\
-            <th>School</th>\
-            <th>Grades</th>\
+            <th>School <i class='fa fa-chevron-up'></i><i class='fa fa-chevron-down'></i></th>\
+            <th>Grades&nbsp;&nbsp;</th>\
             <th>Address</th>\
             <th>Manager</th>\
             <th>Gain</th>\
@@ -388,22 +388,30 @@ var MapsLib = {
       list_table += "\
           </tbody>\
         </table>";
+
+      // add the table to the page
       results.append(list_table);
       
       // init datatable
+      // once we have our table put together and added to the page, we need to initialize DataTables
+      // reference: http://datatables.net/examples/index
+
+      // custom sorting functions defined in js/jquery.dataTables.sorting.js
+      // custom Bootstrap styles for pagination defined in css/dataTables.bootstrap.css
+
       $("#list_table").dataTable({
-          "aaSorting": [[0, "asc"]],
-          "aoColumns": [
-              { "sType": "html-string" },
-              null,
-              null,
-              null,
-              { "sType": "data-value-num" }
+          "aaSorting": [[0, "asc"]], //default column to sort by (School)
+          "aoColumns": [ // tells DataTables how to perform sorting for each column
+              { "sType": "html-string" }, //School name with HTML for the link, which we want to ignore
+              null, // Grades - default text sorting
+              null, // Address - default text sorting
+              null, // Manager - default text sorting
+              { "sType": "data-value-num" } // Gain - sort by a hidded data-value attribute
           ],
-          "bFilter": false,
-          "bInfo": false,
-          "bPaginate": true,
-          "sPaginationType": "bootstrap",
+          "bFilter": false, // disable search box since we already have our own
+          "bInfo": false, // disables results count - we already do this too
+          "bPaginate": true, // enables pagination
+          "sPaginationType": "bootstrap", // custom CSS for pagination in Bootstrap
           "bAutoWidth": false
       });
     }
