@@ -208,6 +208,7 @@ var MapsLib = {
     });
     MapsLib.searchrecords.setMap(map);
     MapsLib.getCount(whereClause);
+    MapsLib.getList(whereClause);
   },
   // MODIFY if you change the number of Polygon layers
   clearSearch: function() {
@@ -268,13 +269,25 @@ var MapsLib = {
       MapsLib.searchRadiusCircle = new google.maps.Circle(circleOptions);
   },
 
-  query: function(selectColumns, whereClause, callback) {
+  query: function(selectColumns, whereClause, groupBY, orderBY, limit, callback) {
     var queryStr = [];
     queryStr.push("SELECT " + selectColumns);
     queryStr.push(" FROM " + MapsLib.fusionTableId);
-    queryStr.push(" WHERE " + whereClause);
+
+    if (whereClause != "")
+      queryStr.push(" WHERE " + whereClause);
+
+    if (groupBY != "")
+      queryStr.push(" GROUP BY " + groupBY);
+
+    if (orderBY != "")
+      queryStr.push(" ORDER BY " + orderBY);
+
+     if (limit != "")
+      queryStr.push(" LIMIT " + limit);
 
     var sql = encodeURIComponent(queryStr.join(" "));
+    // console.log(sql)
     $.ajax({url: "https://www.googleapis.com/fusiontables/v1/query?sql="+sql+"&callback="+callback+"&key="+MapsLib.googleApiKey, dataType: "jsonp"});
   },
 
@@ -292,7 +305,7 @@ var MapsLib = {
 
   getCount: function(whereClause) {
     var selectColumns = "Count()";
-    MapsLib.query(selectColumns, whereClause,"MapsLib.displaySearchCount");
+    MapsLib.query(selectColumns, whereClause,"", "", "", "MapsLib.displaySearchCount");
   },
 
   displaySearchCount: function(json) {
@@ -309,6 +322,101 @@ var MapsLib = {
       });
     $( "#result_box" ).fadeIn();
   },
+
+  getList: function(whereClause) {
+    // select specific columns from the fusion table to display in th list
+    // NOTE: we'll be referencing these by their index (0 = School, 1 = GradeLevels, etc), so order matters!
+    var selectColumns = "School, GradeLevels, Address, City, State, Url, Manager, Gain_numeric, Gain_image";
+    MapsLib.query(selectColumns, whereClause,"", "", 500, "MapsLib.displayList");
+  },
+
+  displayList: function(json) {
+    MapsLib.handleError(json);
+    var columns = json["columns"];
+    var rows = json["rows"];
+    var template = "";
+
+    var results = $("#listview");
+    results.empty(); //hide the existing list and empty it out first
+
+    if (rows == null) {
+      //clear results list
+      results.append("<span class='lead'>No results found</span>");
+      }
+    else {
+
+      //set table headers
+      var list_table = "\
+      <table class='table' id ='list_table'>\
+        <thead>\
+          <tr>\
+            <th>School <i class='fa fa-chevron-up'></i><i class='fa fa-chevron-down'></i></th>\
+            <th>Grades&nbsp;&nbsp;</th>\
+            <th>Address</th>\
+            <th>Manager</th>\
+            <th>Gain</th>\
+          </tr>\
+        </thead>\
+        <tbody>";
+
+      // based on the columns we selected in getList()
+      // rows[row][0] = School
+      // rows[row][1] = GradeLevels
+      // rows[row][2] = Address
+      // rows[row][3] = City
+      // rows[row][4] = State
+      // rows[row][5] = Url
+      // rows[row][6] = Manager
+      // rows[row][7] = Gain_numeric
+      // rows[row][8] = Gain_image
+
+      for (var row in rows) {
+
+        var school = "<a href='" + rows[row][5] + "'>" + rows[row][0] + "</a>";
+        var address = rows[row][2] + "<br />" + rows[row][3] + ", " + rows[row][4];
+
+        list_table += "\
+          <tr>\
+            <td>" + school + "</td>\
+            <td>" + rows[row][1] + "</td>\
+            <td>" + address + "</td>\
+            <td>" + rows[row][6] + "</td>\
+            <td><span data-value='" + rows[row][7] + "'><img src='" + rows[row][8] + "' /></span></td>\
+          </tr>";
+      }
+
+      list_table += "\
+          </tbody>\
+        </table>";
+
+      // add the table to the page
+      results.append(list_table);
+      
+      // init datatable
+      // once we have our table put together and added to the page, we need to initialize DataTables
+      // reference: http://datatables.net/examples/index
+
+      // custom sorting functions defined in js/jquery.dataTables.sorting.js
+      // custom Bootstrap styles for pagination defined in css/dataTables.bootstrap.css
+
+      $("#list_table").dataTable({
+          "aaSorting": [[0, "asc"]], //default column to sort by (School)
+          "aoColumns": [ // tells DataTables how to perform sorting for each column
+              { "sType": "html-string" }, //School name with HTML for the link, which we want to ignore
+              null, // Grades - default text sorting
+              null, // Address - default text sorting
+              null, // Manager - default text sorting
+              { "sType": "data-value-num" } // Gain - sort by a hidded data-value attribute
+          ],
+          "bFilter": false, // disable search box since we already have our own
+          "bInfo": false, // disables results count - we already do this too
+          "bPaginate": true, // enables pagination
+          "sPaginationType": "bootstrap", // custom CSS for pagination in Bootstrap
+          "bAutoWidth": false
+      });
+    }
+   },
+
 
   addCommas: function(nStr) {
     nStr += '';
