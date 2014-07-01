@@ -3,13 +3,14 @@ FusionTable-Map-2-layers
 
 Use this template if you wish to create a Search-and-Filter map that turns on/off at least 2 layers (points and polygons), displays results in a sortable list, and draws data from Google Fusion Tables. The default point map displays a textual legend (A, B, C), with option to switch to numeric (0-100) values. Also, thematic polygon layers may be turned on/off in the background. Based on template customized by Derek Eder http://derekeder.com/searchable_map_template/
 
-Demo at http://jackdougherty.github.io/FusionTable-Map-2-layers
-- toggle display between map view and sortable list view
+##Demos
+Toggle display between map view and sortable list view
+- http://jackdougherty.github.io/FusionTable-Map-2-layers
 
-Another demo at http://jackdougherty.github.io/FusionTable-Map-2-layers/index_both.html
-- display both map view and sortable list
+Display both map view and sortable list
+- http://jackdougherty.github.io/FusionTable-Map-2-layers/index_both.html
 
-How to create your own version with this template:
+##Create your own with this template:
 
 1) Use Google Fusion Tables to create your point and polygon map layers, and change the feature styles (set ranges, colors, etc.) and info windows.
 
