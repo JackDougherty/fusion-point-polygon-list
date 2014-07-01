@@ -350,7 +350,7 @@ var MapsLib = {
       <table class='table' id ='list_table'>\
         <thead>\
           <tr>\
-            <th>School <i class='fa fa-chevron-up'></i><i class='fa fa-chevron-down'></i></th>\
+            <th>School</th>\
             <th>Grades&nbsp;&nbsp;</th>\
             <th>Address</th>\
             <th>Manager</th>\
