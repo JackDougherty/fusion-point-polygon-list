@@ -12,14 +12,18 @@ Display both map view and sortable list
 
 ##Create your own with this template:
 
-1) Use Google Fusion Tables to create your point and polygon map layers, and change the feature styles (set ranges, colors, etc.) and info windows.
+1) Use Google Fusion Tables to create your point layer (all types in one table), and set the feature styles (set ranges, colors, etc.) and info windows.
 
-2) Make your own copy of this template: either Fork to your own GitHub account, or Clone in Desktop, or Download a ZIP compressed version to your desktop.
+2) Use Google Fusion Tables to create your polygon layers (each layer in its own table), and set feature styles (thematic shading, etc.) and info windows
 
-3) Modify two files, following instructions in the code comments, to match your Google Fusion Table data:
+3) Make your own copy of this template: either Fork to your own GitHub account, or Clone in Desktop, or Download a ZIP compressed version to your desktop.
 
-- index.html
+4) Modify two files, following instructions in the code comments, to match your Google Fusion Tables:
+
+- index.html (to toggle between map and sortable list) or index_both.html (to display both at same time)
 - maps_lib.js (located inside the js folder)
+
+Carefully read comments to display table results, which will be fully documented later. (ToDo)
 
 3) Host everything on the web (such as a GitHub repository gh-pages branch)
 
