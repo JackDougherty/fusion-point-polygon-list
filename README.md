@@ -1,16 +1,24 @@
-FusionTable-Map-2-layers
+fusion-point-polygon-list
 ========================
+Searchable point and polygon layer map template, with sortable list results, using Google Maps and Fusion Tables
 
 Use this template if you wish to create a Search-and-Filter map that turns on/off at least 2 layers (points and polygons), displays results in a sortable list, and draws data from Google Fusion Tables. The default point map displays a textual legend (A, B, C), with option to switch to numeric (0-100) values. Also, thematic polygon layers may be turned on/off in the background. Based on template customized by Derek Eder http://derekeder.com/searchable_map_template/
 
 ##Demos
 Toggle display between map view and sortable list view
-- http://jackdougherty.github.io/FusionTable-Map-2-layers
+- http://jackdougherty.github.io/fusion-point-polygon-list/
 
 Display both map view and sortable list
-- http://jackdougherty.github.io/FusionTable-Map-2-layers/index_both.html
+- http://jackdougherty.github.io/fusion-point-polygon-list/index_both.html
 
-##Create your own with this template:
+##To Do
+Update this template from Derek Eder's most current version
+
+##Create your own with this template
+
+See tutorial in Fusion Tables template section of  *Data Visualization for All* book at http://DataVizForAll.org
+
+General steps:
 
 1) Use Google Fusion Tables to create your point layer (all types in one table), and set the feature styles (set ranges, colors, etc.) and info windows.
 
@@ -23,11 +31,10 @@ Display both map view and sortable list
 - index.html (to toggle between map and sortable list) or index_both.html (to display both at same time)
 - maps_lib.js (located inside the js folder)
 
-Carefully read comments to display table results, which will be fully documented later. (ToDo)
+*TO DO* document steps in the display table results section of the code
 
-3) Host everything on the web (such as a GitHub repository gh-pages branch)
+5) Host everything on the web (such as a GitHub repository gh-pages branch)
 
-Learn more in an open-access Data Visualization book-in-progress by Jack Dougherty at Trinity College CT
-http://epress.trincoll.edu/dataviz
+
 
 Coming soon: display dynamic polygon legend, similar to http://chicagobuildings.org/
