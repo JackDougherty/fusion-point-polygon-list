@@ -2,7 +2,7 @@
 <html lang='en'>
   <head>
     <!--MODIFY title that appears in web browser tab -->
-    <title>Search-and-Filter Map Template</title>
+    <title>fusion-point-polygon-list</title>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta content='' name='description' />
@@ -27,12 +27,12 @@
             <span class="icon-bar"></span>
           </button>
           <!--MODIFY title of web page, and link destination if desired-->
-          <a class='navbar-brand' href='index.html'>Search-and-Filter Map Template with 2 layers</a>
+          <a class='navbar-brand' href='index.html'>Search Map Template v1.3 fusion-point-polygon-list (map-and-list version)</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <!--MODIFY link and text to point to your own site if desired-->
-            <li class='active'><a href="http://epress.trincoll.edu/dataviz" target="_blank">Learn more from free DataViz book at Trinity College CT</a></li>
+            <li class='active'><a href="http://datavizforall.org">Learn more at DataVizForAll.org</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -41,7 +41,7 @@
       <div class='row'>
         <div class='col-md-4'>
         <!--MODIFY or erase any descriptive text or links below between the paragraph <p> tags -->
-          <p>Download and modify <a href="https://github.com/JackDougherty/FusionTable-Map-2-layers" target="_blank">template code from GitHub</a><br>Based on <a href='http://derekeder.com/searchable_map_template/' target='_blank'>Searchable Map Template</a> by <a href='http://derekeder.com'>Derek Eder</a><br>Draws data from <a href='http://support.google.com/fusiontables/answer/2571232?hl=en&ref_topic=1652595' target='_blank'>Google Fusion Tables</a></p>
+          <p>View <a href="http://github.com/JackDougherty/fusion-point-polygon-list">code on GitHub</a><br>Based on <a href='http://derekeder.com/searchable_map_template/'>Searchable Map Template v1.3</a> by <a href='http://derekeder.com'>Derek Eder</a><br>Pulls data from <a href='http://support.google.com/fusiontables/answer/2571232?hl=en&ref_topic=1652595'>Google Fusion Tables</a></p>
           <div class='well'>
             <h4>
               Address <small>(<a id='find_me' href='#'>find me</a>)</small>
@@ -61,7 +61,7 @@
                 </select>
               </label>
             </p>
-            
+
             <!--MODIFY Point layer legend heading, labels (such as Interdistrict), and colors (green, blue, yellow, red, purple) to match your data -->
             <h4>
               Point layer
@@ -112,8 +112,8 @@
                   Off
                 </label>
               </li>
-            </ul> 
-            
+            </ul>
+
             <div class='clearfix'></div>
             <p class='pull-left'>
               <a class='btn btn-primary' id='search' href='#'>
@@ -159,10 +159,10 @@
         $(window).resize(function () {
           var h = $(window).height(),
             offsetTop = 105; // Calculate the top offset
-        
+
           $('#map_canvas').css('height', (h - offsetTop));
         }).resize();
-        
+
         $(function() {
           MapsLib.initialize();
           $("#search_address").geocomplete();
@@ -174,26 +174,26 @@
           $(':radio').click(function(){
             MapsLib.doSearch();
           });
-          
+
           $('#search_radius').change(function(){
             MapsLib.doSearch();
           });
-          
+
           $('#search').click(function(){
             MapsLib.doSearch();
           });
-          
+
           $('#find_me').click(function(){
-            MapsLib.findMe(); 
+            MapsLib.findMe();
             return false;
           });
-          
+
           $('#reset').click(function(){
             $.address.parameter('address','');
-            MapsLib.initialize(); 
+            MapsLib.initialize();
             return false;
           });
-          
+
           $(":text").keydown(function(e){
               var key =  e.keyCode ? e.keyCode : e.which;
               if(key == 13) {
