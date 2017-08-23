@@ -6,14 +6,14 @@ Based on Derek Eder's Searchable Map Template v1.3 http://derekeder.com/searchab
 
 Use this template if you wish to create a Search-and-Filter map that turns on/off at least 2 layers (points and polygons), displays results in a sortable list, and draws data from Google Fusion Tables. The default point map displays a textual legend (A, B, C), with option to switch to numeric (0-100) values. Also, thematic polygon layers may be turned on/off in the background.
 
-##Demos
+## Demos
 Toggle version: display map view OR sortable list view
 - http://jackdougherty.github.io/fusion-point-polygon-list/index.html
 
 Both version: display both map view and sortable list
 - http://jackdougherty.github.io/fusion-point-polygon-list/index_both.html
 
-##Create your own version
+## Create your own version
 
 See tutorial in Fusion Tables template section of *Data Visualization for All* book at http://DataVizForAll.org
 
@@ -35,5 +35,5 @@ General steps:
 5) Host everything on the web (such as a GitHub repository gh-pages branch)
 
 
-##To Do
+## To Do
 Update template to Derek Eder's v1.4
