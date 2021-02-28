@@ -1,5 +1,7 @@
 fusion-point-polygon-list
 ========================
+DEPRECATED - DO NOT USE
+
 Searchable point and polygon layer map template, with sortable list results, using Google Maps and Fusion Tables
 
 Based on Derek Eder's Searchable Map Template v1.3 http://derekeder.com/searchable_map_template/
